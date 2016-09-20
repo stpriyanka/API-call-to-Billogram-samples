@@ -1,0 +1,11 @@
+c:\users\worldfavor2\documents\visual studio 2013\Projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.exe.config
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.exe.config
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.csprojResolveAssemblyReference.cache
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.exe
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.pdb
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\Newtonsoft.Json.dll
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Net.Http.Formatting.dll
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\Newtonsoft.Json.xml
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Net.Http.Formatting.xml
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.exe
+C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.pdb
