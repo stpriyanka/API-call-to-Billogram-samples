@@ -9,3 +9,15 @@ C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_cal
 C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Net.Http.Formatting.xml
 C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.exe
 C:\worldfavor\supporting-features-projects\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.pdb
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.exe.config
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.exe
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.pdb
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.exe
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\Billogram_api_calls.pdb
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\Newtonsoft.Json.dll
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Net.Http.Formatting.dll
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\Newtonsoft.Json.xml
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Net.Http.Formatting.xml
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\obj\Debug\Billogram_api_calls.csprojResolveAssemblyReference.cache
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Web.Http.dll
+C:\git_repo\Billogram_api_calls\Billogram_api_calls\Billogram_api_calls\bin\Debug\System.Web.Http.xml

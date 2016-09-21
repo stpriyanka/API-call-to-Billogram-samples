@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.Results;
 using Newtonsoft.Json;
-
+using Newtonsoft.Json.Linq;
+using System.Web.Http;
 namespace Billogram_api_calls
 {
 	static class Program
 	{
 		static void Main(string[] args)
 		{
-			RunAsync_send_billogram().Wait();
+			RunAsync_fetch_single_billogram().Wait();
 		}
 
 		/// <summary>
@@ -40,10 +43,15 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(responseBody);
+			JObject json = JObject.Parse(responseBody);
+
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
-
 		}
 
 		//404
@@ -65,6 +73,7 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
+
 			Console.WriteLine(responseBody);
 
 			Console.ReadLine();
@@ -113,7 +122,14 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+
+			JObject json = JObject.Parse(responseBody);
+
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 
 			Console.ReadLine();
@@ -125,7 +141,6 @@ namespace Billogram_api_calls
 		/// <returns></returns>
 		private static async Task RunAsync_create_billogram_as_Unattested_state()
 		{
-
 			const string authUser = "3331-0lgWtglW";
 			const string authKey = "761b54eb59aeca57e1a8cfa16fe67693";
 
@@ -154,8 +169,13 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+			JObject json = JObject.Parse(responseBody);
 
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
@@ -187,8 +207,13 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+			JObject json = JObject.Parse(responseBody);
 
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
@@ -223,8 +248,14 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
 
+			JObject json = JObject.Parse(responseBody);
+
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
@@ -259,8 +290,13 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+			JObject json = JObject.Parse(responseBody);
 
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
@@ -298,7 +334,13 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+			JObject json = JObject.Parse(responseBody);
+
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
@@ -335,7 +377,13 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+			JObject json = JObject.Parse(responseBody);
+
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
@@ -372,7 +420,13 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(JsonConvert.DeserializeObject(responseBody));
+			JObject json = JObject.Parse(responseBody);
+
+			IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			Console.WriteLine(json);
 
 			Console.ReadLine();
 
