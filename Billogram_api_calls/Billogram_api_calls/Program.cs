@@ -17,7 +17,7 @@ namespace Billogram_api_calls
 	{
 		static void Main(string[] args)
 		{
-			RunAsync_fetch_single_billogram().Wait();
+			RunAsync_get_billograms_list_by_customerNo().Wait();
 		}
 
 		/// <summary>
@@ -420,13 +420,33 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
-			JObject json = JObject.Parse(responseBody);
+			JObject jo = JObject.Parse(responseBody);
 
-			IDictionary<string, JToken> rates = (JObject)json["data"];
+			JArray jArray = (JArray)jo["data"];
 
-			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+			var ids = new List<string>();
 
-			Console.WriteLine(json);
+			foreach (var item in jArray.Children())
+			{
+				var itemProperties = item.Children<JProperty>();
+				JProperty resJProperty = itemProperties.FirstOrDefault(x => x.Name == "id");
+
+				string str = resJProperty.Value.ToString();
+
+				//JObject propertyList = (JObject)item[str];
+
+				//var dic = new Dictionary<string, object>();
+
+				//foreach (var property in propertyList)
+				//{
+				//	ids.Add((string)property.Value);
+				//}
+
+
+			}
+
+
+			Console.WriteLine(jArray);
 
 			Console.ReadLine();
 
