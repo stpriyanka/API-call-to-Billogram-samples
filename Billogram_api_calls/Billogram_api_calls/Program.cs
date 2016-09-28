@@ -17,7 +17,7 @@ namespace Billogram_api_calls
 	{
 		static void Main(string[] args)
 		{
-			RunAsync_get_billograms_list_by_customerNo().Wait();
+			RunAsync_get_invoicePDF().Wait();
 		}
 
 		/// <summary>
@@ -89,25 +89,65 @@ namespace Billogram_api_calls
 			const string authUser = "3331-0lgWtglW";
 			const string authKey = "761b54eb59aeca57e1a8cfa16fe67693";
 
+			//var Data = new
+			//{
+			//	customer_no = 6866,
+			//	name = "customer8",
+			//	company_type = "individual",
+			//	org_no = "",
+			//	contact = new
+			//	{
+			//		name = "customer8",
+			//		email = "stpriyanka2011@gmail.com"
+			//	},
+			//	address = new
+			//	{
+			//		street_address = "Armegatan",
+			//		zipcode = "17171",
+			//		city = "kista",
+			//		country = "SE"
+			//	},
+			//};
+
+
+
+
 			var Data = new
 			{
-				customer_no = 8,
-				name = "customer8",
-				company_type = "individual",
+				customer_no = 70021,//required
+				name = "blabla", //required
+				company_type = "business",//required
 				org_no = "",
+				vat_no = "",
 				contact = new
 				{
-					name = "customer8",
-					email = "stpriyanka2011@gmail.com"
-				},
+					name = "",
+					email = "",
+					phone = ""
+				}
+				,
 				address = new
 				{
-					street_address = "Armegatan",
-					zipcode = 17171,
-					city = "kista",
-					country = "SE"
-				},
+					street_address = "",
+					careof = "",
+					use_careof_as_attention = "",
+					zipcode = "17171", //required
+					city = "",
+					country = "SE" //required
+				}
+				,
+				delivery_address = new
+				{
+					name = "",
+					street_address = "",
+					careof = "",
+					zipcode = "",
+					city = "",
+					country = "SE" //required
+				}
+
 			};
+
 
 
 			var client = new HttpClient();
@@ -139,7 +179,7 @@ namespace Billogram_api_calls
 		/// POST {save in draft}
 		/// </summary>
 		/// <returns></returns>
-		private static async Task RunAsync_create_billogram_as_Unattested_state()
+		private static async Task<string> RunAsync_create_billogram_as_Unattested_state()
 		{
 			const string authUser = "3331-0lgWtglW";
 			const string authKey = "761b54eb59aeca57e1a8cfa16fe67693";
@@ -169,15 +209,28 @@ namespace Billogram_api_calls
 			response.EnsureSuccessStatusCode();
 
 			var responseBody = await response.Content.ReadAsStringAsync();
+
 			JObject json = JObject.Parse(responseBody);
+
+			//IDictionary<string, JToken> rates = (JObject)json["data"];
+
+			//Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+			//Console.WriteLine(json);
+
+			//Console.ReadLine();
 
 			IDictionary<string, JToken> rates = (JObject)json["data"];
 
 			Dictionary<string, dynamic> dictionary = rates.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
 
-			Console.WriteLine(json);
+			dynamic value = null;
 
+			dictionary.TryGetValue("id", out value);
+
+			Console.WriteLine(value);
 			Console.ReadLine();
+			return value;
 
 		}
 
@@ -431,27 +484,94 @@ namespace Billogram_api_calls
 				var itemProperties = item.Children<JProperty>();
 				JProperty resJProperty = itemProperties.FirstOrDefault(x => x.Name == "id");
 
-				string str = resJProperty.Value.ToString();
+				if (resJProperty != null)
+				{
+					string billoId = resJProperty.Value.ToString();
 
-				//JObject propertyList = (JObject)item[str];
-
-				//var dic = new Dictionary<string, object>();
-
-				//foreach (var property in propertyList)
-				//{
-				//	ids.Add((string)property.Value);
-				//}
-
-
+					ids.Add(billoId);
+				}
 			}
 
-
 			Console.WriteLine(jArray);
+			Console.ReadLine();
+		}
+
+
+		private static async Task RunAsync_update_customer_data()
+		{
+			const string authUser = "3331-0lgWtglW";
+			const string authKey = "761b54eb59aeca57e1a8cfa16fe67693";
+
+			var client = new HttpClient();
+
+			var byteArray = Encoding.ASCII.GetBytes(authUser + ":" + authKey);
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
+			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+			const string baseUrl = "https://sandbox.billogram.com/api/v2/customer/";
+
+			var query = HttpUtility.ParseQueryString(string.Empty);
+			query["filter_field"] = "customer_no";
+			query["filter_value"] = "1";
+			string queryString = query.ToString();
+
+			var data = new
+			{
+				delivery_address = new
+				{
+					street_address = "armegatan 32ppppa"
+				}
+			};
+
+			HttpResponseMessage response = await client.PutAsJsonAsync(baseUrl + 1, data);
+
+			response.EnsureSuccessStatusCode();
+
+			var responseBody = await response.Content.ReadAsStringAsync();
+			JObject jo = JObject.Parse(responseBody);
+
+			Console.WriteLine(jo);
 
 			Console.ReadLine();
 
 		}
 
+
+		private static async Task RunAsync_get_invoicePDF()
+		{
+			const string authUser = "3331-0lgWtglW";
+			const string authKey = "761b54eb59aeca57e1a8cfa16fe67693";
+
+			var client = new HttpClient();
+
+			var byteArray = Encoding.ASCII.GetBytes(authUser + ":" + authKey);
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
+			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+			const string baseUrl = "https://sandbox.billogram.com/api/v2/billogram/";
+
+			const string billogramId = "JJsMyRW";
+
+			HttpResponseMessage response = await client.GetAsync(baseUrl + billogramId + ".pdf");
+
+			if (response.IsSuccessStatusCode)
+			{
+				response.EnsureSuccessStatusCode();
+				
+				var responseBody = await response.Content.ReadAsStringAsync();
+				JObject jo = JObject.Parse(responseBody);
+			
+				Console.WriteLine(jo);
+			}
+			else
+			{
+				Console.WriteLine("unable to get pdf");
+			}
+			Console.ReadLine();
+
+		}
 
 	}
 }
