@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,8 +18,9 @@ namespace Billogram_api_calls
 	{
 		static void Main(string[] args)
 		{
-			RunAsync_get_invoicePDF().Wait();
+			RunAsync_get_single_customer().Wait();
 		}
+
 
 		/// <summary>
 		/// GET
@@ -465,13 +467,17 @@ namespace Billogram_api_calls
 			query["page_size"] = "50";
 			query["filter_type"] = "field";
 			query["filter_field"] = "customer:customer_no";
-			query["filter_value"] = "1";
+			//query["filter_value"] = "1";
+
 			string queryString = query.ToString();
 
 			HttpResponseMessage response = await client.GetAsync(baseUrl + "?" + queryString);
 
-			response.EnsureSuccessStatusCode();
+			var rescode = response.Headers;
+			var xyz = response.ReasonPhrase;
 
+			if (response.IsSuccessStatusCode)
+				response.EnsureSuccessStatusCode();
 			var responseBody = await response.Content.ReadAsStringAsync();
 			JObject jo = JObject.Parse(responseBody);
 
@@ -559,10 +565,25 @@ namespace Billogram_api_calls
 			if (response.IsSuccessStatusCode)
 			{
 				response.EnsureSuccessStatusCode();
-				
+
 				var responseBody = await response.Content.ReadAsStringAsync();
+
 				JObject jo = JObject.Parse(responseBody);
-			
+
+				IDictionary<string, JToken> jObject = (JObject)jo["data"];
+
+				Dictionary<string, dynamic> dictionary = jObject.ToDictionary(pair => pair.Key, pair => (dynamic)pair.Value);
+
+				dynamic value;
+
+				bool s = dictionary.TryGetValue("content", out value);
+
+
+
+				byte[] fileBytes = File.ReadAllBytes(value);
+
+				var plainText = Convert.ToBase64String(fileBytes);
+
 				Console.WriteLine(jo);
 			}
 			else
@@ -570,7 +591,6 @@ namespace Billogram_api_calls
 				Console.WriteLine("unable to get pdf");
 			}
 			Console.ReadLine();
-
 		}
 
 	}
